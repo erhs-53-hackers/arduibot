@@ -1,10 +1,9 @@
 #include "Particle.h"
 
 Particle::Particle(int width, int height) {
-  randomSeed(analogRead(0));
-  location.x = random(0, 1) * width;
-  location.y = random(0, 1) * height;
-  orientation = random(0, 1) * 2.0 * PI;  
+  location.x = nextDouble() * width;
+  location.y = nextDouble() * height;
+  orientation = nextDouble() * 2.0 * PI;  
 }
 
 void Particle::move(double turn, double forward, double Fnoise, double Tnoise) {
@@ -31,8 +30,13 @@ void Particle::measureProb(double measurement, Line map[], double Snoise, int le
 
   Point intersect;
   double best = len + 1;
+  Serial.print("Size:");
+  Serial.println(sizeof(map)/sizeof(Line));
+  
+  
+  
 
-  for(int i=0;i<sizeof(map)/sizeof(map[0]);i++) {
+  for(int i=0;i<4;i++) {
     double x, y;
     boolean hit = lineSegmentIntersection(location.x, location.y,
     p.x, p.y,
@@ -40,6 +44,7 @@ void Particle::measureProb(double measurement, Line map[], double Snoise, int le
     map[i].p2.x, map[i].p2.y,
     &x, &y);
     if(hit) {
+      Serial.println("HIT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       Point foo;
       foo.x = x;
       foo.y = y;
@@ -50,6 +55,11 @@ void Particle::measureProb(double measurement, Line map[], double Snoise, int le
       }
     }
   }
+  
+  Serial.print("Intersect: X:");
+  Serial.print(intersect.x);
+  Serial.print(", Y:");
+  Serial.println(intersect.y);
   
   probability = Gaussian(best, Snoise, measurement);
 

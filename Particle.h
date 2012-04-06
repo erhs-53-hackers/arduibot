@@ -6,6 +6,9 @@ struct Point {
 struct Line {
   Point p1, p2;  
 };
+
+typedef Line* Map;
+
 class Particle {
   public:
     double orientation, probability;    
