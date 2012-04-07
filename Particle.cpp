@@ -1,9 +1,19 @@
-#include "Particle.h"
+//#include "Particle.h"
 
+
+/*
 Particle::Particle(int width, int height) {
+  randomize(width, height); 
+}
+
+Particle::Particle() {
+  
+}
+
+void Particle::randomize(int width, int height) {
   location.x = nextDouble() * width;
   location.y = nextDouble() * height;
-  orientation = nextDouble() * 2.0 * PI;  
+  orientation = nextDouble() * 2.0 * PI; 
 }
 
 void Particle::move(double turn, double forward, double Fnoise, double Tnoise) {
@@ -43,6 +53,7 @@ void Particle::measureProb(double measurement, Line map[], double Snoise, int le
     map[i].p1.x, map[i].p1.y,
     map[i].p2.x, map[i].p2.y,
     &x, &y);
+    
     if(hit) {
       Serial.println("HIT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       Point foo;
@@ -65,6 +76,7 @@ void Particle::measureProb(double measurement, Line map[], double Snoise, int le
 
 
 }
+*/
 
 
 

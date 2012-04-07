@@ -3,24 +3,33 @@
 #include "PIDController.h"
 #include "Ping.h"
 #include "Robot.h"
-#include "Particle.h"
+
+#include "ParticleFilter.h"
 #include <Wire.h>
 #include <Servo.h>
 #include "Math.h"
-#define SPEED 200
 
 
-Gyro gyro;
-Ping ultra(7);
-Robot robot;
-PIDController PID(0.05, 0.00000, 0.1, -1, 1);//21.1967086791, 0.001, 29.1900043487
-PIDController temp(0.1, 0.00000, 0.4, -1, 1);
-Particle part(100, 100);
-Line _map[4];
 
-Servo left, right;
-boolean transmitting = false;
-String message = "";
+
+
+
+/*
+Particle part1(100, 100);
+Particle part2(100, 100);
+Particle part3(100, 100);
+Particle part4(100, 100);
+Particle part5(100, 100);
+Particle part6(100, 100);
+Particle part7(100, 100);
+Particle part8(100, 100);
+Particle part9(100, 100);
+Particle part10(100, 100);
+*/
+//Line _map[4];
+
+
+
 
 
 
@@ -33,7 +42,7 @@ double modAngle(double angle) {
   }
   return angle;
 }
-
+/*
 void recieveMessage() {
   if (Serial.available() > 0) {
     if(!transmitting) {
@@ -61,6 +70,7 @@ void recieveMessage() {
   
   
 }
+
 void followAngle(double val) {
   robot.move(-val, 0); //temp.doPID(ultra.getDistance())
   
@@ -72,21 +82,19 @@ void t(double val) {
   robot.move(-PID.doPID(gyro.getZ()), -val);
   
 }
+*/
+Particle particles[1000];
 void setup(){  
   Wire.begin();
   Serial.begin(9600);
   Serial.println("Loading...");
-
+  //ParticleFilter filter(100, 100, 100);  
   
-  gyro.configure(); 
-  PID.setpoint = gyro.getZ();
-  PID.action = &followAngle; 
- 
-  temp.setpoint = 2; 
-  temp.action = &t;
+  
 
-  robot.attach(9, 10);
-  robot.isRightInverted = true;
+  //robot.attach(9, 10);
+  //robot.isRightInverted = true;
+  /*
   Point p1, p2;
   
   Line line1, line2, line3, line4;
@@ -122,12 +130,12 @@ void setup(){
   _map[1] = line2;
   _map[2] = line3;
   _map[3] = line4;
-  Serial.println(line2.p1.x);
+  */
   
-  part.location.x = 5;
-  part.location.y = 5;
-  part.orientation = 3*PI/2;
-  part.measureProb(5, _map, 0.1, 10000);
+  //filter.map = _map;
+  Serial.println("Loaded");
+  
+ 
   /*
   double x, y;
   lineSegmentIntersection(5, 5, -4, -10, 0, 0, 100,0, &x, &y);
@@ -138,29 +146,12 @@ void setup(){
   */
   
 
-  //robot.move(0.6, 1);
-  
-  
-  
-  
-  
- 
- 
+  //robot.move(0.6, 1); 
 }
 
 void loop(){ 
-  //84
- //Serial.println("yo");
-  PID.doPID(gyro.getZ());
-  //Serial.println(rand() / (32767.0 + 1.0), DEC);
-  Serial.print("X:");
-  Serial.print(part.location.x);
-  Serial.print(", Y:");
-  Serial.print(part.location.y);
-  Serial.print(", Theta:");
-  Serial.print(part.orientation);
-  Serial.print(", Prob:");
-  Serial.println(part.probability, DEC);
+  Serial.println("LOOPING!!!!!!!!!!!!!!!!!!!");
+  
  
  
 
