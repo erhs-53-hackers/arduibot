@@ -1,13 +1,20 @@
 #include "Particle.h"
-#include <arduino.h>
+#include "Map.h"
+#define PART_COUNT 20
+
+using namespace std;
+
 class ParticleFilter {
   public:
     int numOfParticles, width, height;
-    double Fnoise, Tnosie, Snoise;
-    Map map;
-    Particle particles[490];
-    ParticleFilter(int num, int width, int height);
+    double Fnoise, Tnoise, Snoise;
+    Particle particles[PART_COUNT];
+    Map MAP;
+    ParticleFilter(int width, int height, double Fnoise, double Tnoise, double Snoise);
     void move(double turn, double forward);
-    Point getLocation();
-    void resample(double measurement);  
+    Particle getLocation();
+    void measureProbability(double* probs, double measurement);
+    void resample(double measurement);
+    void print();
+
 };

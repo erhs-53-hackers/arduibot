@@ -1,16 +1,35 @@
+#include "Math.h"
+#define BAR_COUNT 4
 struct Point {
-  double x, y;  
+    Point();
+    Point(double, double);
+    double x, y;
 };
-struct Line {
-  Point p1, p2;  
+struct Barrier {
+    virtual bool collides(double, double, double, double, double*, double*) = 0;
 };
-typedef Line* Map;
+struct Line : public Barrier {
+    Point p1, p2;
+    Line(Point, Point);
+    Line();
+    virtual bool collides(double, double, double, double, double*, double*);
+};
 
-#ifndef PERSON_H_
-#define PERSON_H_
-struct person{ 
-   
-  double age; 
-  
+struct Map {
+    Barrier* barriers[BAR_COUNT];
+    Line line1;
+    Line line2;
+    Line line3;
+    Line line4;
+    Map();
+
 };
-#endif
+
+
+
+
+
+
+
+
+
