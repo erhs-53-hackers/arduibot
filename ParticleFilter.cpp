@@ -19,11 +19,11 @@ ParticleFilter::ParticleFilter(int width, int height, double Fnoise, double Tnoi
 
 void ParticleFilter::move(double turn, double forward) {
   for(int i=0; i<PART_COUNT; i++) {
-    Serial.println(particles[i].theta);
-    particles[i].theta += turn + randn_notrig(0, Tnoise);    
+    //Serial.println(particles[i].theta);
+    particles[i].theta += turn + randn_trig(0, Tnoise);    
     particles[i].theta = circle(particles[i].theta, 2.0 * PI);
-    Serial.println(particles[i].theta);
-    double dist = forward + randn_notrig(0, Fnoise);
+    //Serial.println(particles[i].theta);
+    double dist = forward + randn_trig(0, Fnoise);
 
     particles[i].x += cos(particles[i].theta) * dist;
     particles[i].y += sin(particles[i].theta) * dist;
@@ -52,33 +52,35 @@ Particle ParticleFilter::getLocation() {
 
 void ParticleFilter::measureProbability(double* probs, double measurement) {
   double len = width * height;
-  double dists[PART_COUNT];
-  
+  //double dists[PART_COUNT];
+  //Serial.print("Sensing ");
+  //Serial.print(measurement);
+  //Serial.println(":");
   for(int i = 0; i<PART_COUNT; i++) {
     Point p;
     
     p.x = particles[i].x + cos(particles[i].theta) * len;
     p.y = particles[i].y + sin(particles[i].theta) * len;
     
-    Serial.println(p.x);
-    Serial.println(p.y);
+    //Serial.println(p.x);
+    //Serial.println(p.y);
     Point intersect;
     double best = len + 1;
 
     for(int a=0; a<BAR_COUNT; a++) {
       double x, y;
-      bool hit = MAP.barriers[a]->collides(particles[i].x, particles[i].y,
+      bool hit = MAP.barriers[a].collides(particles[i].x, particles[i].y,
       p.x, p.y,
       &x, &y);
 
       if(hit) {
-        Serial.println("HIT!!!");
+        //Serial.println("HIT!!!");
         double dist = distance(particles[i].x, particles[i].y, x, y);
-        Serial.println(a);
-        Serial.println(x);
-        Serial.println(y);
+        //Serial.println(a);
+        //Serial.println(x);
+        //Serial.println(y);
         if(dist < best) {
-          dists[i] = dist;
+          
           intersect.x = x;
           intersect.y = y;
           best = dist;
@@ -86,16 +88,18 @@ void ParticleFilter::measureProbability(double* probs, double measurement) {
       }
     }
     probs[i] = Gaussian(best, Snoise, measurement);
+    //dists[i] = bes;
   }
-  
+  /*
   for(int i=0; i<PART_COUNT; i++) {
     //cout<<i<<"|"<<probs[i]<<endl;
     Serial.print(i);
     Serial.print("|");
     Serial.print(probs[i], DEC);
-    Serial.print(", Dist:");
-    Serial.println(dists[i]);
-  }  
+    Serial.println(", Dist:");
+    //Serial.println(dists[i]);
+  } 
+ */ 
 }
 
 
@@ -143,9 +147,7 @@ void ParticleFilter::resample(double measurement) {
 
 void ParticleFilter::print() {
   //cout << "Particles("<<PART_COUNT<<"):"<<endl;
-  Serial.print("Particles(");
-  Serial.print(PART_COUNT);
-  Serial.println("):");
+ 
   for(int i=0; i<PART_COUNT; i++) {
     //cout << i << "|";
     Serial.print(i);
