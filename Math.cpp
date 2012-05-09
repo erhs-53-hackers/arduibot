@@ -171,7 +171,8 @@ bool lineSegmentIntersection(
 }
 
 double nextDouble() {
-    return TrueRandom.rand() / (32767.0 + 1.0);
+  return 0.5;  
+  //return TrueRandom.rand() / (32767.0 + 1.0);
 }
 
 double distance(double x1, double y1, double x2, double y2) {

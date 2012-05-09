@@ -14,6 +14,7 @@ ParticleFilter::ParticleFilter(int width, int height, double Fnoise, double Tnoi
     particles[i].x = nextDouble() * width;
     particles[i].y = nextDouble() * height;
     particles[i].theta = nextDouble() * 2.0 * PI;
+    Serial.println(i + 1);
   }
 }
 

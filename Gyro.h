@@ -1,4 +1,4 @@
-#include <arduino.h>
+#include <Arduino.h>
 #include <Wire.h>
 #define FACTOR 18.0 / 256.0
 #define ZDRIFT -4.92 //-5.11 //-4.73

@@ -14,7 +14,7 @@
 
 
 
-ParticleFilter filter(5, 5, 0.05, 0.05, 0.5);
+
 void setup(){
   randomSeed(analogRead(0));  
   Wire.begin();
@@ -30,6 +30,7 @@ void setup(){
   filter.resample(3);
   filter.print();
   */
+  ParticleFilter filter(5, 5, 0.05, 0.05, 0.5);
   
   
   filter.print();
@@ -57,7 +58,7 @@ void setup(){
 }
 
 void loop(){ 
-  Serial.println("LOOPING!!!!!!!!!!!!!!!!!!!");
+  Serial.println("LOOPING");
   
  
  

@@ -1,5 +1,5 @@
 #include <TrueRandom.h>
-#include <arduino.h>
+#include <Arduino.h>
 #define PI 3.14159265358979323846
 
 double randn_notrig(double mu, double sigma);

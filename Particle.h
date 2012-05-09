@@ -1,5 +1,5 @@
 struct Particle {
-       double theta, x, y;
+       double /*theta,*/ x, y;
 };
 
 

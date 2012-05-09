@@ -1,6 +1,6 @@
 #include "Particle.h"
 #include "Map.h"
-#define PART_COUNT 43
+#define PART_COUNT 200
 
 using namespace std;
 
